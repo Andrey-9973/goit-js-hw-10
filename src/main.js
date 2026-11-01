@@ -8,7 +8,6 @@ const form = document.querySelector('.search-form');
 
 form.addEventListener('submit', event => {
   event.preventDefault();
-
   const requestText = form.elements.input.value.trim();
 
   if (requestText === '') {
