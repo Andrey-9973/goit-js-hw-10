@@ -2,7 +2,7 @@
 @import url('./reset.css');
 @import url('./base.css');
 
-.search-form {
+.form {
   display: flex;
   justify-content: center;
   align-items: center;
