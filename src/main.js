@@ -6,7 +6,7 @@ const orderLog = document.querySelector('.order-log');
 function makeOrder(drink, shouldResolve) {
   return new Promise((resolve, reject) => {
     const delay = PREP_TIME[drink];
-    setdelayout(() => {
+    setTimeout(() => {
       if (shouldResolve === 'fulfilled') {
         resolve({ drink, delay });
       } else {
@@ -39,6 +39,6 @@ form.addEventListener('submit', event => {
       row.textContent = `❌ ${drink} · скасовано · ${delay} ms`;
     })
     .finally(() => {
-      row.textContent += ` · ${new Date().toLocaledelayString('uk-UA')}`;
+      row.textContent += ` · ${new Date().toLocaleTimeString('uk-UA')}`;
     });
 });
