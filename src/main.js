@@ -19,7 +19,6 @@ form.addEventListener('submit', event => {
   event.preventDefault();
 
   const formData = new FormData(form);
-
   const drink = formData.get('drink');
   const state = formData.get('state');
 
