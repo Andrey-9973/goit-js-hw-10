@@ -3,14 +3,13 @@ import { PREP_TIME } from './js/menu.js';
 const form = document.querySelector('.form');
 const orderLog = document.querySelector('.order-log');
 
-function makeOrder(drink, shouldResolve) {
+function makeOrder(delay, shouldResolve) {
   return new Promise((resolve, reject) => {
-    const delay = PREP_TIME[drink];
     setTimeout(() => {
-      if (shouldResolve === 'fulfilled') {
-        resolve({ drink, delay });
+      if (shouldResolve) {
+        resolve(delay);
       } else {
-        reject({ drink, delay });
+        reject(delay);
       }
     }, delay);
   });
@@ -19,21 +18,29 @@ function makeOrder(drink, shouldResolve) {
 form.addEventListener('submit', event => {
   event.preventDefault();
 
-  const drink = form.elements.drink.value;
-  const state = form.elements.state.value;
-  const order = makeOrder(drink, state);
+  const formData = new FormData(form);
+
+  const drink = formData.get('drink');
+  const state = formData.get('state');
+
+  const delay = PREP_TIME[drink];
+  const shouldResolve = state === 'fulfilled';
+
+  const order = makeOrder(delay, shouldResolve);
 
   orderLog.insertAdjacentHTML(
     'beforeend',
-    `<li class="row-pending" >${drink} · у роботі</li>`
+    `<li class="row-pending">${drink} · у роботі</li>`
   );
-  const row = orderLog.lastChild;
+
+  const row = orderLog.lastElementChild;
+
   order
-    .then(({ drink, delay }) => {
+    .then(delay => {
       row.className = 'row-ok';
       row.textContent = `✅ ${drink} · готове · ${delay} ms`;
     })
-    .catch(({ drink, delay }) => {
+    .catch(delay => {
       row.className = 'row-err';
       row.textContent = `❌ ${drink} · скасовано · ${delay} ms`;
     })
