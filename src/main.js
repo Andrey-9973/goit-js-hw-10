@@ -21,7 +21,6 @@ form.addEventListener('submit', event => {
 
   const drink = form.elements.drink.value;
   const state = form.elements.state.value;
-
   const order = makeOrder(drink, state);
 
   orderLog.insertAdjacentHTML(
