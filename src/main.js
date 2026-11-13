@@ -19,7 +19,6 @@ form.addEventListener('submit', event => {
 
   getImagesByQuery(requestText)
     .then(data => {
-      console.log(data);
       const images = data.hits;
 
       if (images.length === 0) {
